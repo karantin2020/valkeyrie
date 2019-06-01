@@ -40,7 +40,7 @@ type BoltDB struct {
 	// PersistConnection flag provides an option to override ths behavior.
 	// ie: open the connection in New and use it till Close is called.
 	PersistConnection bool
-	sync.Mutex
+	sync.RWMutex
 }
 
 const (
@@ -133,8 +133,8 @@ func (b *BoltDB) Get(key string, opts *store.ReadOptions) (*store.KVPair, error)
 		db  *bbolt.DB
 		err error
 	)
-	b.Lock()
-	defer b.Unlock()
+	b.RLock()
+	defer b.RUnlock()
 
 	if db, err = b.getDBhandle(); err != nil {
 		return nil, err
@@ -235,8 +235,8 @@ func (b *BoltDB) Exists(key string, opts *store.ReadOptions) (bool, error) {
 		db  *bbolt.DB
 		err error
 	)
-	b.Lock()
-	defer b.Unlock()
+	b.RLock()
+	defer b.RUnlock()
 
 	if db, err = b.getDBhandle(); err != nil {
 		return false, err
@@ -266,8 +266,8 @@ func (b *BoltDB) List(keyPrefix string, opts *store.ReadOptions) ([]*store.KVPai
 		db  *bbolt.DB
 		err error
 	)
-	b.Lock()
-	defer b.Unlock()
+	b.RLock()
+	defer b.RUnlock()
 
 	kv := []*store.KVPair{}
 
