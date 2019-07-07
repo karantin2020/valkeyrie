@@ -66,7 +66,7 @@ type Locker interface {
 
 Backend drivers in `valkeyrie` are generally divided between **local drivers** and **distributed drivers**. Distributed backends offer enhanced capabilities like `Watches` and/or distributed `Locks`.
 
-Local drivers are usually used in complement to the distributed drivers to store informations that only needs to be available locally.
+Local drivers are usually used in complement to the distributed drivers to store information that only needs to be available locally.
 
 | Calls                 |   Consul   |  Etcd  |  Zookeeper  |    Redis   |  BoltDB  |
 |-----------------------|:----------:|:------:|:-----------:|:----------:|:--------:|
